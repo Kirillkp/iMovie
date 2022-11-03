@@ -9,6 +9,7 @@ struct MovieList: View {
         ScrollView {
             VStack {
                 reposList
+                    .animation(.linear)
             }.padding(.horizontal)
         }
     }

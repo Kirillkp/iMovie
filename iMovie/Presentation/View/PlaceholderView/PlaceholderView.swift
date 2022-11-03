@@ -61,8 +61,8 @@ struct PlaceholderView: View {
                 buttonAction?()
             }
         }
-        
     }
+    
 }
 
 enum StatePlaceholder {
