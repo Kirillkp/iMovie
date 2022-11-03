@@ -75,7 +75,6 @@ final class MainViewModel: ObservableObject {
             guard case .loading = state else { return Empty().eraseToAnyPublisher() }
             
             return self.serviceLayer.filmsService.obtainFilm(order: .rating, type: .film)
-                .delay(for: 2, scheduler: RunLoop.main)
                 .map { films in
                     guard !films.items.isEmpty else { return Event.onMoviesEmpty }
                     return Event.onMoviesLoaded(films.items)
