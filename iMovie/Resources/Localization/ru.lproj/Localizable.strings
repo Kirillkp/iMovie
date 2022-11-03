@@ -1,0 +1,24 @@
+/* 
+  Localizable.strings
+  iMovie
+
+  Created by Кирилл Полосов on 03.11.2022.
+  
+*/
+
+//MARK: Global string
+"global_placeholder_poster_preview" = "image_placeholder";
+"global_unknow" = "Неизвестный";
+"global_empty" = "";
+
+//MARK: MainView
+"common_title_main_view" = "iMovie";
+
+//MARK: CardDetailView
+"common_genre_card_detail" = "Жанры:";
+
+//MARK: PlaceholderView
+"common_placeholder_state_error" = "Ошибка. \nПерезагрузить";
+"common_placeholder_state_loading" = "Загрузка";
+"common_placeholder_state_empty" = "Нет данных\nПерезагрузить";
+"common_placeholder_state_none" = "Неизвестная ошибка.\nПерезагрузить";
