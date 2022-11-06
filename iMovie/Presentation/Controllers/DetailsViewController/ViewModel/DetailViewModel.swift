@@ -61,13 +61,19 @@ final class DetailViewModel: ObservableObject {
     }
     
     private func whenLoading() -> Feedback<State, Event> {
-        Feedback { [weak self] (state: State) -> AnyPublisher<Event, Never> in
-            guard case .loading(let id) = state else { return Empty().eraseToAnyPublisher() }
+        Feedback { [weak serviceLayer] (state: State) -> AnyPublisher<Event, Never> in
+            guard case .loading(let id) = state else {
+                return Empty().eraseToAnyPublisher()
+            }
 
-            return self?.serviceLayer.filmsService.obtainFilmId(with: "\(id)")
+            guard let serviceLayer = serviceLayer?.filmsService else {
+                return Just(Event.onFailedToLoad).eraseToAnyPublisher()
+            }
+            
+            return serviceLayer.obtainFilmId(with: "\(id)")
                 .map(Event.onLoaded)
                 .catch { _ in Just(Event.onFailedToLoad) }
-                .eraseToAnyPublisher() ?? Empty().eraseToAnyPublisher()
+                .eraseToAnyPublisher()
         }
     }
     

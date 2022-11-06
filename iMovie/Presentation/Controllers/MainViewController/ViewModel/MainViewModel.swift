@@ -71,10 +71,14 @@ final class MainViewModel: ObservableObject {
     }
     
     private func whenLoading() -> Feedback<State, Event> {
-        Feedback { (state: State) -> AnyPublisher<Event, Never> in
+        Feedback { [weak serviceLayer] (state: State) -> AnyPublisher<Event, Never> in
             guard case .loading = state else { return Empty().eraseToAnyPublisher() }
             
-            return self.serviceLayer.filmsService.obtainFilm(order: .rating, type: .film)
+            guard let serviceLayer = serviceLayer?.filmsService else {
+                return Just(Event.onFailedToLoadMovies).eraseToAnyPublisher()
+            }
+    
+            return serviceLayer.obtainFilm(order: .rating, type: .film)
                 .map { films in
                     guard !films.items.isEmpty else { return Event.onMoviesEmpty }
                     return Event.onMoviesLoaded(films.items)
